@@ -37,8 +37,16 @@ def index():
 
 @app.route("/health-check")
 def health_check():
-    return {"status": "OK"}
-
+    import os
+    return {
+        "status": "OK",
+        "template_folder": app.template_folder,
+        "static_folder": app.static_folder,
+        "cwd": os.getcwd(),
+        "file_path": __file__,
+        "templates_exist": os.path.exists(app.template_folder),
+        "templates_content": os.listdir(app.template_folder) if os.path.exists(app.template_folder) else []
+    }
 
 @app.route("/debug-dirs")
 
