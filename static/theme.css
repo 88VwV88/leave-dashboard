@@ -1,0 +1,455 @@
+/* shadcn.css - Provides Shadcn UI aesthetic over Bootstrap 5 */
+
+/* Light Mode Variables */
+:root,
+[data-bs-theme="light"] {
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 240 5.9% 10%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 240 5.9% 10%;
+  --radius: 0.5rem;
+
+  /* Bootstrap Overrides */
+  --bs-body-bg: hsl(var(--background));
+  --bs-body-color: hsl(var(--foreground));
+  --bs-primary: hsl(var(--primary));
+  --bs-primary-rgb: 24, 24, 27; /* hsl(240 5.9% 10%) approx */
+  --bs-secondary: hsl(var(--secondary));
+  --bs-secondary-bg: hsl(var(--secondary));
+  --bs-secondary-color: hsl(var(--secondary-foreground));
+  --bs-success: hsl(142 76% 36%); /* Shadcn default success green */
+  --bs-danger: hsl(var(--destructive));
+  --bs-warning: hsl(48 96% 53%);
+  --bs-info: hsl(200 98% 39%);
+  --bs-border-color: hsl(var(--border));
+  --bs-border-radius: var(--radius);
+  --bs-border-radius-lg: 0.75rem;
+  --bs-border-radius-sm: 0.375rem;
+  --bs-box-shadow:
+    0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  --bs-box-shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --bs-box-shadow-lg:
+    0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+/* Dark Mode Variables */
+[data-bs-theme="dark"] {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 240 5.9% 10%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --ring: 240 4.9% 83.9%;
+
+  /* Bootstrap Overrides mapped */
+  --bs-body-bg: hsl(var(--background));
+  --bs-body-color: hsl(var(--foreground));
+  --bs-primary: hsl(var(--primary));
+  --bs-primary-rgb: 250, 250, 250; /* approx */
+  --bs-secondary: hsl(var(--secondary));
+  --bs-secondary-bg: hsl(var(--secondary));
+  --bs-secondary-color: hsl(var(--secondary-foreground));
+  --bs-border-color: hsl(var(--border));
+  --bs-success: hsl(142 70% 45%);
+  --bs-danger: hsl(var(--destructive));
+}
+
+/* Typography Overrides */
+body {
+  font-family:
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  color: hsl(var(--foreground));
+}
+
+/* Card Overrides */
+.card {
+  background-color: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--bs-border-radius-lg);
+  box-shadow: var(--bs-box-shadow-sm);
+  transition:
+    box-shadow 0.2s ease-in-out,
+    transform 0.2s ease-in-out;
+}
+
+.card-header {
+  background-color: transparent;
+  border-bottom: 1px solid hsl(var(--border));
+  padding: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+.card-footer {
+  background-color: transparent;
+  border-top: 1px solid hsl(var(--border));
+  padding: 1.5rem;
+}
+
+/* Hover Cards */
+.card-hover:hover {
+  box-shadow: var(--bs-box-shadow);
+  transform: translateY(-2px);
+}
+
+/* Inputs & Forms */
+.form-control,
+.form-select {
+  background-color: transparent;
+  border: 1px solid hsl(var(--input));
+  color: hsl(var(--foreground));
+  border-radius: var(--radius);
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: transparent;
+  background-color: transparent;
+  color: hsl(var(--foreground));
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 2px hsl(var(--background)),
+    0 0 0 4px hsl(var(--ring));
+}
+
+/* Form floating exact match */
+.form-floating > .form-control,
+.form-floating > .form-control-plaintext,
+.form-floating > .form-select {
+  height: calc(3.5rem + 2px);
+  line-height: 1.25;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius);
+  font-size: 0.875rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  line-height: 1.25rem;
+  transition:
+    background-color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.1s ease;
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 2px hsl(var(--background)),
+    0 0 0 4px hsl(var(--ring));
+}
+
+.btn-primary {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  border: 1px solid hsl(var(--primary));
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active {
+  background-color: hsl(var(--primary) / 0.9);
+  color: hsl(var(--primary-foreground));
+  border-color: hsl(var(--primary) / 0.9);
+}
+
+.btn-primary:disabled,
+.btn-primary.disabled {
+  background-color: hsl(var(--primary)) !important;
+  color: hsl(var(--primary-foreground)) !important;
+  border-color: hsl(var(--primary)) !important;
+  opacity: 0.5 !important;
+}
+
+.btn-success {
+  background-color: var(--bs-success);
+  color: #fff;
+  border-color: transparent;
+}
+
+.btn-success:hover,
+.btn-success:focus,
+.btn-success:active {
+  background-color: color-mix(in srgb, var(--bs-success), black 10%);
+  color: #fff;
+  border-color: transparent;
+}
+
+.btn-success:disabled,
+.btn-success.disabled {
+  background-color: var(--bs-success) !important;
+  color: #fff !important;
+  border-color: transparent !important;
+  opacity: 0.5 !important;
+}
+
+.btn-secondary {
+  background-color: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+  border: 1px solid transparent;
+}
+
+.btn-secondary:hover,
+.btn-secondary:focus,
+.btn-secondary:active {
+  background-color: hsl(var(--secondary) / 0.8);
+  color: hsl(var(--secondary-foreground));
+  border-color: transparent;
+}
+
+.btn-outline-primary,
+.btn-outline-secondary {
+  border: 1px solid hsl(var(--input));
+  background-color: transparent;
+  color: hsl(var(--foreground));
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active,
+.btn-outline-secondary:hover,
+.btn-outline-secondary:focus,
+.btn-outline-secondary:active,
+.btn-outline-secondary.active {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+  border-color: hsl(var(--input));
+}
+
+.btn-danger {
+  background-color: hsl(var(--destructive));
+  color: hsl(var(--destructive-foreground));
+  border-color: transparent;
+}
+
+.btn-danger:hover,
+.btn-danger:focus,
+.btn-danger:active {
+  background-color: hsl(var(--destructive) / 0.9);
+  color: hsl(var(--destructive-foreground));
+  border-color: transparent;
+}
+
+/* Modals & Dialogs */
+.modal-content {
+  background-color: hsl(var(--background));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--bs-border-radius-lg);
+  box-shadow: var(--bs-box-shadow-lg);
+}
+
+.modal-header {
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.modal-footer {
+  border-top: 1px solid hsl(var(--border));
+}
+
+/* Tables */
+.table {
+  color: hsl(var(--foreground));
+  caption-side: bottom;
+  border-collapse: collapse;
+}
+
+.table th {
+  color: hsl(var(--muted-foreground));
+  font-weight: 500;
+  text-align: left;
+  border-bottom: 1px solid hsl(var(--border));
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+.table td {
+  border-bottom: 1px solid hsl(var(--border));
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+
+/* Table Hover styling */
+.table-hover > tbody > tr:hover > * {
+  background-color: hsl(var(--muted) / 0.5);
+  color: hsl(var(--foreground));
+  transition: background-color 0.2s ease;
+}
+
+/* Badge (Badge standardisation) */
+.badge {
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+}
+
+/* Micro Interactions */
+.hover-scale {
+  transition: transform 0.2s ease;
+}
+.hover-scale:hover {
+  transform: scale(1.02);
+}
+
+/* Search Dropdown */
+.search-dropdown {
+  display: none;
+  z-index: 1050;
+  top: 100%;
+  left: 0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border: 1px solid var(--bs-border-color);
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  width: 36px;
+  height: 36px;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* Login Page Wrapper */
+.login-wrapper {
+  min-height: 70vh;
+}
+
+/* New Leave Row Highlight (CSS-only fade) */
+@keyframes row-highlight-fade {
+  0% {
+    background-color: var(--bs-success);
+    color: #fff;
+  }
+  70% {
+    background-color: var(--bs-success);
+    color: #fff;
+  }
+  100% {
+    background-color: transparent;
+    color: inherit;
+  }
+}
+
+.leave-row-new > td {
+  animation: row-highlight-fade 2s ease-out forwards;
+}
+
+/* Focus Utility */
+.focus-ring-shadcn {
+  transition: box-shadow 0.2s ease;
+}
+.focus-ring-shadcn:focus-visible {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  box-shadow:
+    0 0 0 2px hsl(var(--background)),
+    0 0 0 4px hsl(var(--ring));
+}
+
+/* Navbar */
+.navbar {
+  background-color: hsl(var(--background) / 0.8) !important;
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+/* Tweak form labels for floating */
+.form-floating > label {
+  color: hsl(var(--muted-foreground));
+}
+
+/* Toasts */
+.toast {
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--bs-border-radius-lg);
+  box-shadow: var(--bs-box-shadow-lg);
+}
+.toast-header {
+  background-color: transparent;
+  border-bottom: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
+}
+.toast-body {
+  color: hsl(var(--foreground));
+}
+[data-bs-theme="dark"] .btn-close {
+  filter: invert(1) grayscale(100%) brightness(200%);
+}

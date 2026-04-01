@@ -1,0 +1,6 @@
+*__pycache__/
+instance/
+# python packages
+.venv/
+.ruff_cache/
+.env

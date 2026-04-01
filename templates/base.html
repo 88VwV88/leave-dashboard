@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Leave Dashboard{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='bootstrap.min.css') }}"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='theme.css') }}"
+    />
+    <script>
+      // Set theme before page load to avoid FOUC
+      const getPreferredTheme = () => {
+        const storedTheme = localStorage.getItem("theme");
+        if (storedTheme) {
+          return storedTheme;
+        }
+        return window.matchMedia("(prefers-color-scheme: dark)").matches
+          ? "dark"
+          : "light";
+      };
+      document.documentElement.setAttribute(
+        "data-bs-theme",
+        getPreferredTheme(),
+      );
+    </script>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg modern-navbar sticky-top">
+      <div class="container">
+        <a class="navbar-brand fw-bold text-primary" href="/">
+          <h1>Leave Dashboard</h1>
+        </a>
+        <div class="d-flex align-items-center gap-3 ms-auto">
+          <button
+            class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center rounded-circle hover-scale theme-toggle-btn"
+            id="theme-toggle"
+            aria-label="Toggle theme"
+          >
+            <span class="theme-toggle-icon">🌓</span>
+          </button>
+          {% if current_user.is_authenticated %} {% if
+          current_user.has_role('admin') %}
+          <span class="badge bg-primary">Admin</span>
+          {% else %}
+          <span class="badge bg-info text-dark">Maintainer</span>
+          {% endif %}
+          <form
+            action="{{ url_for_security('logout') }}"
+            method="POST"
+            class="m-0"
+          >
+            {% if csrf_token %}
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            {% endif %}
+            <button type="submit" class="btn btn-danger btn-sm hover-scale">
+              Logout
+            </button>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">{% block content %}{% endblock %}</main>
+
+    <!-- Global Toast Container -->
+    <div aria-live="polite" aria-atomic="true" class="position-relative">
+      <div
+        class="toast-container position-fixed bottom-0 end-0 p-3"
+        id="globalToastContainer"
+        style="z-index: 1060"
+      >
+        <!-- Toasts will be injected here -->
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const themeToggleBtn = document.getElementById("theme-toggle");
+
+        const setTheme = (theme) => {
+          document.documentElement.setAttribute("data-bs-theme", theme);
+          localStorage.setItem("theme", theme);
+        };
+
+        themeToggleBtn.addEventListener("click", () => {
+          const currentTheme =
+            document.documentElement.getAttribute("data-bs-theme");
+          const newTheme = currentTheme === "dark" ? "light" : "dark";
+          setTheme(newTheme);
+        });
+      });
+
+      function showToast(message, type = "success") {
+        const container = document.getElementById("globalToastContainer");
+        const toastId = "toast-" + Date.now();
+        const bgClass =
+          type === "error"
+            ? "text-bg-danger"
+            : type === "warning"
+              ? "text-bg-warning"
+              : "text-bg-success";
+        const title =
+          type === "error"
+            ? "Error"
+            : type === "warning"
+              ? "Warning"
+              : "Success";
+
+        const toastHtml = `
+                <div id="${toastId}" class="toast align-items-center ${bgClass} border-0 shadow" role="alert" aria-live="assertive" aria-atomic="true">
+                    <div class="d-flex">
+                        <div class="toast-body fw-medium">
+                            <strong>${title}:</strong> ${message}
+                        </div>
+                        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                </div>
+            `;
+        container.insertAdjacentHTML("beforeend", toastHtml);
+        const toastElement = document.getElementById(toastId);
+        const toast = new bootstrap.Toast(toastElement, { delay: 5000 });
+        toast.show();
+
+        toastElement.addEventListener("hidden.bs.toast", () => {
+          toastElement.remove();
+        });
+      }
+    </script>
+  </body>
+</html>

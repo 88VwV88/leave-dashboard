@@ -1,0 +1,47 @@
+{% extends "base.html" %} {% block title %}Admin Login{% endblock %} {% block
+content %}
+<div
+  class="row justify-content-center align-items-center h-100 login-wrapper"
+>
+  <div class="col-12 col-md-8 col-lg-5">
+    <div class="card card-hover border-0">
+      <div class="card-body p-4 p-md-5">
+        <div class="text-center mb-4">
+          <h2 class="fw-bold text-primary mb-2">Welcome Back</h2>
+          <p class="text-muted">Sign in to manage leaves and users.</p>
+        </div>
+        <form method="post" action="{{ url_for_security('login') }}">
+          {{ login_user_form.hidden_tag() }}
+
+          <div class="form-floating mb-4">
+            {{ login_user_form.email(class_="form-control form-control-lg",
+            placeholder="Email") }}
+            <label for="email">{{ login_user_form.email.label.text }}</label>
+            {% if login_user_form.email.errors %}
+            <div class="text-danger mt-1 small ms-1">
+              {% for err in login_user_form.email.errors %}{{ err }}{% endfor %}
+            </div>
+            {% endif %}
+          </div>
+
+          <div class="form-floating mb-4">
+            {{ login_user_form.password(class_="form-control form-control-lg",
+            placeholder="Password") }}
+            <label for="password"
+              >{{ login_user_form.password.label.text }}</label
+            >
+            {% if login_user_form.password.errors %}
+            <div class="text-danger mt-1 small ms-1">
+              {% for err in login_user_form.password.errors %}{{ err }}{% endfor
+              %}
+            </div>
+            {% endif %}
+          </div>
+
+          {{ login_user_form.submit(class_="btn btn-primary w-100 fw-bold hover-scale") }}
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
