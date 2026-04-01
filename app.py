@@ -39,36 +39,37 @@ def health_check():
     return {"status": "OK"}
 
 
-with app.app_context():
-    import flask_security
+if __name__ == "__main__":
+    with app.app_context():
+        import flask_security
 
-    # Seed roles
-    admin_role = user_datastore.find_or_create_role(
-        name="admin", description="Administrator"
-    )
-    maintainer_role = user_datastore.find_or_create_role(
-        name="maintainer", description="Maintainer"
-    )
-    db.session.commit()
-
-    # Seed admin user
-    admin_email = os.environ.get("ADMIN_EMAIL")
-    if admin_email and not user_datastore.find_user(email=admin_email):
-        admin_user = user_datastore.create_user(
-            email=admin_email,
-            password=flask_security.hash_password(os.environ.get("ADMIN_PASSWORD")),
+        # Seed roles
+        admin_role = user_datastore.find_or_create_role(
+            name="admin", description="Administrator"
         )
-        user_datastore.add_role_to_user(admin_user, admin_role)
+        maintainer_role = user_datastore.find_or_create_role(
+            name="maintainer", description="Maintainer"
+        )
         db.session.commit()
 
-    # Seed maintainer user
-    maintainer_email = os.environ.get("MAINTAINER_EMAIL")
-    if maintainer_email and not user_datastore.find_user(email=maintainer_email):
-        maintainer_user = user_datastore.create_user(
-            email=maintainer_email,
-            password=flask_security.hash_password(
-                os.environ.get("MAINTAINER_PASSWORD")
-            ),
-        )
-        user_datastore.add_role_to_user(maintainer_user, maintainer_role)
-        db.session.commit()
+        # Seed admin user
+        admin_email = os.environ.get("ADMIN_EMAIL")
+        if admin_email and not user_datastore.find_user(email=admin_email):
+            admin_user = user_datastore.create_user(
+                email=admin_email,
+                password=flask_security.hash_password(os.environ.get("ADMIN_PASSWORD")),
+            )
+            user_datastore.add_role_to_user(admin_user, admin_role)
+            db.session.commit()
+
+        # Seed maintainer user
+        maintainer_email = os.environ.get("MAINTAINER_EMAIL")
+        if maintainer_email and not user_datastore.find_user(email=maintainer_email):
+            maintainer_user = user_datastore.create_user(
+                email=maintainer_email,
+                password=flask_security.hash_password(
+                    os.environ.get("MAINTAINER_PASSWORD")
+                ),
+            )
+            user_datastore.add_role_to_user(maintainer_user, maintainer_role)
+            db.session.commit()
