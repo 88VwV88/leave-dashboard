@@ -7,7 +7,7 @@ from routes.dashboard import router as dashboard
 import models  # noqa: F401
 from models import User, Role
 
-from database import db
+from database import db     
 
 from flask_migrate import Migrate
 from flask_security import Security, SQLAlchemyUserDatastore
