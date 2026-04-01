@@ -4,3 +4,5 @@ instance/
 .venv/
 .ruff_cache/
 .env
+.vercel
+.env*.local

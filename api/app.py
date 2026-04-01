@@ -7,7 +7,7 @@ from routes.dashboard import router as dashboard
 import models  # noqa: F401
 from models import User, Role
 
-from database import db
+from database import db     
 
 from flask_migrate import Migrate
 from flask_security import Security, SQLAlchemyUserDatastore
@@ -17,7 +17,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="../templates", static_folder="../static")
 app.config.from_object("config.AppConfig")
 
 init_app_database(app)
